@@ -61,7 +61,7 @@
     }
     [data-theme="light"] body::before { opacity: .025; }
 
-    /* --- 2. Aurora gradient background --- */
+    /* --- 2. Aurora gradient background (BALANCED) --- */
     .aurora-bg {
       position: fixed; inset: 0; z-index: 0; pointer-events: none;
       overflow: hidden;
@@ -96,7 +96,7 @@
       75% { transform: translate(2%, 2%) scale(1.04) rotate(1deg); }
     }
 
-    /* --- 3. Floating spotlight --- */
+    /* --- 3. Floating spotlight (CENTERED) --- */
     .spotlight {
       position: fixed; z-index: 0; pointer-events: none;
       width: 700px; height: 700px; border-radius: 50%;
@@ -113,7 +113,7 @@
       66% { transform: translate(-55%, -45%) scale(.95); }
     }
 
-    /* --- 4. Interactive Cursor Spotlight --- */
+    /* --- 4. NEW: Interactive Cursor Spotlight --- */
     .cursor-spotlight {
       position: fixed; z-index: 0; pointer-events: none;
       width: 500px; height: 500px; border-radius: 50%;
@@ -126,7 +126,7 @@
     }
     body:hover .cursor-spotlight { opacity: 1; }
 
-    /* --- 5. Floating Particle Dust --- */
+    /* --- 5. NEW: Floating Particle Dust --- */
     .particle {
       position: fixed; z-index: 0; pointer-events: none;
       width: 4px; height: 4px; border-radius: 50%;
@@ -141,57 +141,7 @@
       100% { transform: translateY(-10vh) translateX(80px) scale(.5); opacity: 0; }
     }
 
-    /* --- 6. NEW: Orbit Lines & Glowing Dots (From Screenshot) --- */
-    .orbit-lines {
-      position: fixed; inset: 0; z-index: 0; pointer-events: none;
-      overflow: hidden;
-    }
-    .orbit-ring {
-      position: absolute;
-      border-radius: 50%;
-      border: 1px dashed rgba(124,60,255,.15);
-      animation: spinRing 60s linear infinite;
-    }
-    .orbit-ring.r1 {
-      width: 700px; height: 700px;
-      top: 10%; left: 20%;
-      border-color: rgba(124,60,255,.12);
-    }
-    .orbit-ring.r2 {
-      width: 1100px; height: 1100px;
-      top: -10%; left: -5%;
-      border-color: rgba(34,211,238,.08);
-      animation-direction: reverse;
-      animation-duration: 90s;
-    }
-    .orbit-ring.r3 {
-      width: 450px; height: 450px;
-      bottom: -5%; right: 10%;
-      border-color: rgba(255,215,0,.06);
-      animation-duration: 45s;
-    }
-    [data-theme="light"] .orbit-ring { border-color: rgba(124,60,255,.08); }
-    @keyframes spinRing {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    .glow-dot {
-      position: absolute;
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--accent-2);
-      box-shadow: 0 0 15px var(--accent-2), 0 0 30px var(--accent-2);
-      animation: dotPulse 3s ease-in-out infinite;
-    }
-    .glow-dot.d1 { top: 20%; left: 12%; animation-delay: 0s; }
-    .glow-dot.d2 { top: 45%; right: 8%; animation-delay: 1s; background: var(--cyan); box-shadow: 0 0 15px var(--cyan), 0 0 30px var(--cyan); }
-    .glow-dot.d3 { bottom: 25%; left: 25%; animation-delay: 2s; background: var(--gold); box-shadow: 0 0 15px var(--gold), 0 0 30px var(--gold); }
-    [data-theme="light"] .glow-dot { opacity: .5; }
-    @keyframes dotPulse {
-      0%, 100% { transform: scale(1); opacity: .6; }
-      50% { transform: scale(1.5); opacity: 1; }
-    }
-
-    /* --- 7. Premium animated gradient border on cards --- */
+    /* --- 6. Premium animated gradient border on cards --- */
     .card, .glass {
       position: relative;
     }
@@ -225,7 +175,7 @@
       100% { background-position: 300% 50%; }
     }
 
-    /* --- 8. 3D Tilt + Glow Pulse & Lift on Cards --- */
+    /* --- 7. NEW: 3D Tilt + Glow Pulse & Lift on Cards --- */
     .card, .glass {
       transition: transform .5s cubic-bezier(.16,1,.3,1), box-shadow .5s ease, border-color .4s, background .4s;
       transform-style: preserve-3d;
@@ -247,7 +197,7 @@
       100% { box-shadow: 0 0 0 1px var(--border), 0 15px 50px -10px rgba(124,60,255,.7), 0 0 70px -15px rgba(34,211,238,.6); }
     }
 
-    /* --- 9. Staggered Reveal Animation --- */
+    /* --- 8. NEW: Staggered Reveal Animation --- */
     .section.visible .card, .section.visible .glass {
       animation: staggerReveal .8s cubic-bezier(.16,1,.3,1) forwards;
       animation-delay: calc(var(--stagger, 0) * 80ms);
@@ -257,7 +207,7 @@
       100% { opacity: 1; transform: translateY(0) scale(1); }
     }
 
-    /* --- 10. Premium section title with animated underline --- */
+    /* --- 9. Premium section title with animated underline --- */
     .section-title {
       position: relative;
       display: inline-block;
@@ -282,7 +232,7 @@
       50% { background-position: 100% 50%; box-shadow: 0 0 25px rgba(34,211,238,.6); }
     }
 
-    /* --- 11. Premium gradient text with kinetic shimmer --- */
+    /* --- 10. Premium gradient text with kinetic shimmer --- */
     .grad-text {
       background: linear-gradient(90deg,
         #B9A7FF 0%, #8B5CF6 20%, #A855F7 40%,
@@ -298,7 +248,7 @@
       50% { background-position: 100% 50%; }
     }
 
-    /* --- 12. Premium button with magnetic + ripple --- */
+    /* --- 11. Premium button with magnetic + ripple --- */
     .btn-primary {
       position: relative;
       overflow: hidden;
@@ -334,7 +284,7 @@
     }
     @keyframes btnGradShift { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
 
-    /* --- 13. Premium eyebrow with animated dot pulses --- */
+    /* --- 12. Premium eyebrow with animated dot pulses --- */
     .eyebrow {
       display: inline-flex; align-items: center; gap: 10px;
       font-family: var(--ff-mono); font-size: 12px; letter-spacing: .18em;
@@ -357,7 +307,7 @@
       50% { box-shadow: 0 0 20px var(--accent-2), 0 0 0 6px rgba(168,85,247,0); }
     }
 
-    /* --- 14. Premium section divider: light beam --- */
+    /* --- 13. Premium section divider: light beam --- */
     .premium-divider {
       position: relative;
       height: 1px;
@@ -396,7 +346,7 @@
       50% { transform: translate(-50%,-50%) rotate(45deg) scale(1.4); }
     }
 
-    /* --- 15. Premium floating orbs --- */
+    /* --- 14. Premium floating orbs (BALANCED) --- */
     .premium-orb {
       position: fixed; z-index: 0; pointer-events: none;
       border-radius: 50%;
@@ -430,7 +380,7 @@
     }
     [data-theme="light"] .premium-orb { opacity: .35; }
 
-    /* --- 16. Premium offer banner --- */
+    /* --- 15. Premium offer banner (golden luxe) --- */
     .offer-banner {
       position: relative; z-index: 3; margin-bottom: 60px;
       padding: 34px 42px;
@@ -514,7 +464,7 @@
       animation: btnGradShift 3s ease infinite;
     }
 
-    /* --- 17. Premium nav glass --- */
+    /* --- 16. Premium nav glass --- */
     #nav.scrolled {
       background: color-mix(in srgb, var(--bg) 75%, transparent);
       backdrop-filter: blur(20px) saturate(180%);
@@ -523,7 +473,7 @@
       box-shadow: 0 8px 30px -12px rgba(0,0,0,.15);
     }
 
-    /* --- 18. Nav link underline slide --- */
+    /* --- 17. NEW: Nav link underline slide --- */
     .nav-links a {
       position: relative;
       overflow: hidden;
@@ -543,7 +493,7 @@
       left: 20%;
     }
 
-    /* --- 19. Premium stat card --- */
+    /* --- 18. Premium stat card --- */
     .stat-card {
       position: relative;
       overflow: hidden;
@@ -554,7 +504,7 @@
       background-size: 300% 300%;
     }
 
-    /* --- 20. Premium skill card icon glow --- */
+    /* --- 19. Premium skill card icon glow --- */
     .skill-card .ic {
       position: relative;
       transition: transform .5s cubic-bezier(.16,1,.3,1), box-shadow .5s;
@@ -564,14 +514,14 @@
                   inset 0 0 20px rgba(168,85,247,.2);
     }
 
-    /* --- 21. Premium contact field focus --- */
+    /* --- 20. Premium contact field focus --- */
     .field input:focus, .field textarea:focus {
       box-shadow: 0 0 0 4px rgba(124,60,255,.12),
                   0 0 30px rgba(124,60,255,.15);
       border-color: var(--accent-2);
     }
 
-    /* --- 22. Premium scroll progress bar --- */
+    /* --- 21. Premium scroll progress bar --- */
     .scroll-progress {
       position: fixed; top: 0; left: 0; width: 0; height: 3px;
       background: linear-gradient(90deg,
@@ -698,7 +648,7 @@
     }
 
     /* ============================================================
-       HERO - REDESIGNED TO MATCH SCREENSHOT
+       HERO
        ============================================================ */
     #hero {
       min-height: 100vh; min-height: 100svh;
@@ -741,8 +691,6 @@
       color: var(--accent-2); border-color: var(--accent-2);
       box-shadow: 0 0 30px rgba(168,85,247,.5), inset 0 0 15px rgba(168,85,247,.15);
     }
-    
-    /* NEW TERMINAL DESIGN */
     .hero-visual { position: relative; }
     .terminal-card {
       position: relative; z-index: 3;
@@ -787,8 +735,6 @@
       box-shadow: 0 0 10px var(--accent-2);
     }
     @keyframes blink { 50% { opacity: 0; } }
-    
-    /* NEW PROFILE CHIP - Pill shaped */
     .profile-chip {
       position: absolute; z-index: 4;
       display: flex; align-items: center; gap: 12px;
@@ -808,39 +754,6 @@
     }
     .profile-chip .name { font-family: var(--ff-display); font-weight: 700; font-size: 13.5px; word-wrap: break-word; }
     .profile-chip .role { color: var(--muted); font-size: 11.5px; }
-
-    /* NEW FLOATING STAT BOX */
-    .floating-stat {
-      position: absolute;
-      bottom: 20px; right: -30px;
-      padding: 16px 20px;
-      border-radius: var(--radius-md);
-      background: rgba(12, 8, 32, 0.8);
-      border: 1px solid rgba(124,60,255,.3);
-      backdrop-filter: blur(12px);
-      box-shadow: 0 20px 40px -10px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.05);
-      z-index: 5;
-      text-align: center;
-      animation: floatStat 6s ease-in-out infinite;
-    }
-    .floating-stat .num {
-      font-family: var(--ff-display); font-size: 28px; font-weight: 800;
-      color: var(--accent-2); line-height: 1;
-      text-shadow: 0 0 20px rgba(168,85,247,.5);
-    }
-    .floating-stat .lbl {
-      font-family: var(--ff-mono); font-size: 10px; letter-spacing: .15em;
-      text-transform: uppercase; color: var(--muted); margin-top: 4px;
-    }
-    [data-theme="light"] .floating-stat {
-      background: rgba(255, 255, 255, 0.9);
-      border-color: rgba(124,60,255,.2);
-    }
-    @keyframes floatStat {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-
     .scroll-cue {
       position: absolute; bottom: 26px; left: 50%;
       transform: translateX(-50%);
@@ -1053,11 +966,10 @@
       .skill-grid { grid-template-columns: repeat(3, 1fr); }
       .contact-grid { grid-template-columns: 1fr; }
       .hero-grid-inner { grid-template-columns: 1fr; gap: 50px; }
-      .hero-visual { margin-top: 60px; max-width: 460px; width: 100%; margin-left: auto; margin-right: auto; }
+      .hero-visual { margin-top: 60px; max-width: 460px; width: 100%; }
       .offer-banner { flex-direction: column; text-align: center; padding: 28px; }
       .offer-content p { max-width: 100%; }
       .offer-cta { justify-content: center; }
-      .floating-stat { right: -10px; bottom: 10px; }
     }
 
     @media (max-width: 768px) {
@@ -1076,8 +988,6 @@
       .terminal-body { padding: 16px; font-size: 12px; min-height: 200px; }
       .terminal-topbar { padding: 12px 14px; }
       .profile-chip { position: relative; bottom: auto; left: auto; margin: 20px auto 0; width: fit-content; max-width: 100%; }
-      .floating-stat { bottom: 10px; right: 0; padding: 12px 16px; }
-      .floating-stat .num { font-size: 22px; }
       .scroll-cue { bottom: 14px; }
       .section { padding: 70px 0; }
       .section-head { margin-bottom: 32px; }
@@ -1146,9 +1056,6 @@
       .profile-chip { padding: 8px 14px 8px 8px; }
       .profile-chip img { width: 36px; height: 36px; }
       .profile-chip .name { font-size: 12px; }
-      .floating-stat { padding: 10px 12px; bottom: 5px; right: 5px; }
-      .floating-stat .num { font-size: 18px; }
-      .floating-stat .lbl { font-size: 8px; }
       .offer-content h3 { font-size: 16px; }
       .section-title { font-size: 22px; }
     }
@@ -1164,7 +1071,6 @@
       .premium-orb { display: none; }
       .cursor-spotlight { display: none; }
       .particle { display: none; }
-      .orbit-lines { display: none; }
       body::before { opacity: .02; }
       .card::before, .glass::before {
         display: none;
@@ -1190,8 +1096,7 @@
       }
       .aurora-bg::before, .aurora-bg::after,
       .spotlight, .premium-orb, .premium-divider::before,
-      .premium-divider::after, .particle, .cursor-spotlight,
-      .orbit-lines * { animation: none !important; display: none !important; }
+      .premium-divider::after, .particle, .cursor-spotlight { animation: none !important; display: none !important; }
       .card:hover, .glass:hover { animation: none !important; transform: translateY(-4px); }
       .section.visible .card, .section.visible .glass { animation: none !important; opacity: 1; transform: none; }
     }
@@ -1209,16 +1114,6 @@
   <div class="premium-orb o1" aria-hidden="true"></div>
   <div class="premium-orb o2" aria-hidden="true"></div>
   <div class="premium-orb o3" aria-hidden="true"></div>
-
-  <!-- NEW: ORBIT LINES & GLOW DOTS (From Screenshot) -->
-  <div class="orbit-lines" aria-hidden="true">
-    <div class="orbit-ring r1"></div>
-    <div class="orbit-ring r2"></div>
-    <div class="orbit-ring r3"></div>
-    <div class="glow-dot d1"></div>
-    <div class="glow-dot d2"></div>
-    <div class="glow-dot d3"></div>
-  </div>
 
   <!-- NAV -->
   <nav id="nav">
@@ -1249,7 +1144,7 @@
     <a href="#contact">Contact</a>
   </div>
 
-  <!-- HERO - REDESIGNED TO MATCH SCREENSHOT -->
+  <!-- HERO -->
   <section id="hero">
     <div class="container hero-grid-inner">
       <div>
@@ -1267,7 +1162,6 @@
         <div class="social-row" id="hero-socials"></div>
       </div>
       <div class="hero-visual">
-        <!-- NEW TERMINAL WINDOW -->
         <div class="terminal-card">
           <div class="terminal-topbar">
             <div class="tdot" style="background:#ff5f57;color:#ff5f57;"></div>
@@ -1279,20 +1173,12 @@
             <div class="terminal-line"><span class="p">$</span> <span id="terminal-type"></span><span class="cursor"></span></div>
           </div>
         </div>
-        
-        <!-- NEW PROFILE CHIP - Pill Shape -->
         <div class="profile-chip">
           <img id="profile-chip-img" src="" alt="Profile photo" />
           <div>
             <div class="name" id="profile-chip-name"></div>
             <div class="role">Guntur, Andhra Pradesh</div>
           </div>
-        </div>
-
-        <!-- NEW FLOATING STAT BOX -->
-        <div class="floating-stat">
-          <div class="num">04</div>
-          <div class="lbl">Projects</div>
         </div>
       </div>
     </div>
@@ -1475,7 +1361,7 @@
       hero: {
         roles: ["Cloud Computing Graduate", "Aspiring Cloud Engineer", "DevOps Enthusiast", "Python Developer", "Flask Developer", "TCS Offer Holder"],
         intro: "I am a B.Tech graduate in Computer Science & Engineering (CSE) with a strong foundation in cloud infrastructure, virtualization, networking, Python, Flask, Linux, databases, and scalable application deployment. I recently received an offer letter from TCS and am actively seeking internship and entry-level opportunities to turn cloud concepts into practical solutions.",
-        terminalLines: ["whoami", "→ pothineni_dolendra", "status --track cloud-computing"]
+        terminalLines: ["whoami", "→ pothineni_dolendra", "status --track cloud", "→ B.Tech CSE · Graduated", "offer --latest", "→ TCS Offer Received 🎉", "skills --list", "→ python, flask, sqlite, linux, aws, azure, gcp", "focus --set", "→ internship + entry-level roles"]
       },
       about: {
         summary: "I am a B.Tech graduate in Computer Science & Engineering (CSE) from R.V.R & J.C College of Engineering. I have developed a strong foundation in computer science, cloud infrastructure, virtualization, networking, operating systems, databases, and software development. I recently received an offer letter from TCS, and I enjoy learning modern cloud technologies and building practical applications that can scale.",
@@ -1678,7 +1564,7 @@
       $('#footer-text').textContent = `© ${new Date().getFullYear()} ${DATA.personal.name}. All rights reserved.`;
     }
 
-    /* --- Scramble Text Effect for Role Rotator --- */
+    /* --- NEW: Scramble Text Effect for Role Rotator --- */
     function initRoleRotator() {
       const roles = DATA.hero.roles;
       const target = $('#role-rotator');
@@ -1727,7 +1613,6 @@
       tick();
     }
 
-    /* --- Terminal Typing Effect --- */
     function initTerminalTyping() {
       const lines = DATA.hero.terminalLines;
       const body = $('#terminal-body');
@@ -1828,7 +1713,7 @@
       localStorage.setItem('portfolio-theme', mode);
     }
 
-    /* --- Magnetic Buttons + Ripple --- */
+    /* --- NEW: Magnetic Buttons + Ripple --- */
     function initButtonEffects() {
       if (matchMedia('(hover: none)').matches) return;
       $$('.btn-primary').forEach(btn => {
@@ -1859,7 +1744,7 @@
       });
     }
 
-    /* --- Interactive Cursor Spotlight --- */
+    /* --- NEW: Interactive Cursor Spotlight --- */
     function initCursorSpotlight() {
       if (matchMedia('(hover: none)').matches) return;
       const spot = $('#cursor-spotlight');
@@ -1869,7 +1754,7 @@
       }, { passive: true });
     }
 
-    /* --- Floating Particles --- */
+    /* --- NEW: Floating Particles --- */
     function initParticles() {
       if (matchMedia('(prefers-reduced-motion: reduce)').matches || window.innerWidth < 768) return;
       for (let i = 0; i < 15; i++) {
@@ -1883,7 +1768,7 @@
       }
     }
 
-    /* --- 3D Tilt on Cards --- */
+    /* --- NEW: 3D Tilt on Cards --- */
     function init3DTilt() {
       if (matchMedia('(hover: none)').matches) return;
       $$('.card, .glass').forEach(card => {
