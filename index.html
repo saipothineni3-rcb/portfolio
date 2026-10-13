@@ -50,7 +50,7 @@
        PREMIUM EFFECTS SYSTEM
        ============================================================ */
 
-    /* --- 1. Global noise texture overlay (premium print feel) --- */
+    /* --- 1. Global noise texture overlay --- */
     body::before {
       content: '';
       position: fixed; inset: 0; z-index: 1;
@@ -61,7 +61,7 @@
     }
     [data-theme="light"] body::before { opacity: .025; }
 
-    /* --- 2. Aurora gradient background (moving) --- */
+    /* --- 2. Aurora gradient background --- */
     .aurora-bg {
       position: fixed; inset: 0; z-index: 0; pointer-events: none;
       overflow: hidden;
@@ -72,19 +72,20 @@
       width: 120%; height: 120%;
       top: -10%; left: -10%;
       background:
-        radial-gradient(ellipse 40% 30% at 20% 30%, rgba(124,60,255,.35), transparent 60%),
-        radial-gradient(ellipse 35% 25% at 80% 20%, rgba(168,85,247,.28), transparent 60%),
-        radial-gradient(ellipse 45% 35% at 50% 80%, rgba(34,211,238,.18), transparent 60%),
-        radial-gradient(ellipse 30% 25% at 85% 75%, rgba(236,72,153,.15), transparent 60%);
+        radial-gradient(ellipse 40% 30% at 20% 30%, rgba(124,60,255,.25), transparent 60%),
+        radial-gradient(ellipse 40% 30% at 80% 30%, rgba(124,60,255,.25), transparent 60%),
+        radial-gradient(ellipse 35% 25% at 50% 20%, rgba(168,85,247,.20), transparent 60%),
+        radial-gradient(ellipse 45% 35% at 50% 80%, rgba(34,211,238,.15), transparent 60%);
       filter: blur(60px);
       animation: auroraFlow 30s ease-in-out infinite;
     }
     .aurora-bg::after {
       background:
-        radial-gradient(ellipse 35% 30% at 70% 30%, rgba(255,215,0,.14), transparent 65%),
-        radial-gradient(ellipse 40% 35% at 30% 70%, rgba(124,60,255,.22), transparent 65%);
+        radial-gradient(ellipse 35% 30% at 30% 70%, rgba(255,215,0,.10), transparent 65%),
+        radial-gradient(ellipse 35% 30% at 70% 70%, rgba(255,215,0,.10), transparent 65%),
+        radial-gradient(ellipse 40% 35% at 50% 50%, rgba(124,60,255,.15), transparent 65%);
       animation: auroraFlow 40s ease-in-out infinite reverse;
-      opacity: .7;
+      opacity: .6;
     }
     [data-theme="light"] .aurora-bg::before { opacity: .35; }
     [data-theme="light"] .aurora-bg::after { opacity: .3; }
@@ -95,24 +96,102 @@
       75% { transform: translate(2%, 2%) scale(1.04) rotate(1deg); }
     }
 
-    /* --- 3. Floating spotlight (follows scroll) --- */
+    /* --- 3. Floating spotlight --- */
     .spotlight {
       position: fixed; z-index: 0; pointer-events: none;
       width: 700px; height: 700px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(124,60,255,.18), transparent 60%);
+      background: radial-gradient(circle, rgba(124,60,255,.15), transparent 60%);
       filter: blur(60px);
-      top: 20%; left: 50%;
-      transform: translateX(-50%);
+      top: 30%; left: 50%;
+      transform: translate(-50%, -50%);
       animation: spotlightFloat 20s ease-in-out infinite;
     }
-    [data-theme="light"] .spotlight { background: radial-gradient(circle, rgba(124,60,255,.12), transparent 60%); }
+    [data-theme="light"] .spotlight { background: radial-gradient(circle, rgba(124,60,255,.10), transparent 60%); }
     @keyframes spotlightFloat {
-      0%, 100% { transform: translate(-50%, 0) scale(1); }
-      33% { transform: translate(-30%, -10%) scale(1.1); }
-      66% { transform: translate(-70%, 10%) scale(.95); }
+      0%, 100% { transform: translate(-50%, -50%) scale(1); }
+      33% { transform: translate(-45%, -55%) scale(1.1); }
+      66% { transform: translate(-55%, -45%) scale(.95); }
     }
 
-    /* --- 4. Premium animated gradient border on cards --- */
+    /* --- 4. Interactive Cursor Spotlight --- */
+    .cursor-spotlight {
+      position: fixed; z-index: 0; pointer-events: none;
+      width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(124,60,255,.12), transparent 70%);
+      filter: blur(50px);
+      left: 0; top: 0;
+      transform: translate(-50%, -50%);
+      transition: opacity .3s;
+      opacity: 0;
+    }
+    body:hover .cursor-spotlight { opacity: 1; }
+
+    /* --- 5. Floating Particle Dust --- */
+    .particle {
+      position: fixed; z-index: 0; pointer-events: none;
+      width: 4px; height: 4px; border-radius: 50%;
+      background: rgba(168,85,247,.6);
+      box-shadow: 0 0 8px rgba(168,85,247,.8);
+      animation: particleFloat linear infinite;
+    }
+    @keyframes particleFloat {
+      0% { transform: translateY(100vh) translateX(0) scale(0); opacity: 0; }
+      10% { opacity: 1; transform: scale(1); }
+      90% { opacity: 1; }
+      100% { transform: translateY(-10vh) translateX(80px) scale(.5); opacity: 0; }
+    }
+
+    /* --- 6. NEW: Orbit Lines & Glowing Dots (From Screenshot) --- */
+    .orbit-lines {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      overflow: hidden;
+    }
+    .orbit-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px dashed rgba(124,60,255,.15);
+      animation: spinRing 60s linear infinite;
+    }
+    .orbit-ring.r1 {
+      width: 700px; height: 700px;
+      top: 10%; left: 20%;
+      border-color: rgba(124,60,255,.12);
+    }
+    .orbit-ring.r2 {
+      width: 1100px; height: 1100px;
+      top: -10%; left: -5%;
+      border-color: rgba(34,211,238,.08);
+      animation-direction: reverse;
+      animation-duration: 90s;
+    }
+    .orbit-ring.r3 {
+      width: 450px; height: 450px;
+      bottom: -5%; right: 10%;
+      border-color: rgba(255,215,0,.06);
+      animation-duration: 45s;
+    }
+    [data-theme="light"] .orbit-ring { border-color: rgba(124,60,255,.08); }
+    @keyframes spinRing {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .glow-dot {
+      position: absolute;
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent-2);
+      box-shadow: 0 0 15px var(--accent-2), 0 0 30px var(--accent-2);
+      animation: dotPulse 3s ease-in-out infinite;
+    }
+    .glow-dot.d1 { top: 20%; left: 12%; animation-delay: 0s; }
+    .glow-dot.d2 { top: 45%; right: 8%; animation-delay: 1s; background: var(--cyan); box-shadow: 0 0 15px var(--cyan), 0 0 30px var(--cyan); }
+    .glow-dot.d3 { bottom: 25%; left: 25%; animation-delay: 2s; background: var(--gold); box-shadow: 0 0 15px var(--gold), 0 0 30px var(--gold); }
+    [data-theme="light"] .glow-dot { opacity: .5; }
+    @keyframes dotPulse {
+      0%, 100% { transform: scale(1); opacity: .6; }
+      50% { transform: scale(1.5); opacity: 1; }
+    }
+
+    /* --- 7. Premium animated gradient border on cards --- */
     .card, .glass {
       position: relative;
     }
@@ -146,27 +225,39 @@
       100% { background-position: 300% 50%; }
     }
 
-    /* --- 5. Card shine sweep on hover --- */
-    .card::after, .glass::after {
-      content: '';
-      position: absolute; inset: 0;
-      border-radius: inherit;
-      background: linear-gradient(105deg,
-        transparent 30%,
-        rgba(255,255,255,.08) 45%,
-        rgba(255,255,255,.18) 50%,
-        rgba(255,255,255,.08) 55%,
-        transparent 70%);
-      transform: translateX(-100%);
-      transition: transform .9s cubic-bezier(.16,1,.3,1);
-      pointer-events: none;
-      z-index: 2;
+    /* --- 8. 3D Tilt + Glow Pulse & Lift on Cards --- */
+    .card, .glass {
+      transition: transform .5s cubic-bezier(.16,1,.3,1), box-shadow .5s ease, border-color .4s, background .4s;
+      transform-style: preserve-3d;
+      will-change: transform;
     }
-    .card:hover::after, .glass:hover::after {
-      transform: translateX(100%);
+    .card:hover, .glass:hover {
+      transform: translateY(-8px) scale(1.02) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+      border-color: transparent;
+      background: var(--surface-strong);
+      box-shadow:
+        0 0 0 1px var(--border),
+        0 10px 40px -10px rgba(124,60,255,.6),
+        0 0 60px -15px rgba(34,211,238,.5),
+        inset 0 0 20px -10px rgba(168,85,247,.3);
+      animation: glowPulse 2s infinite alternate;
+    }
+    @keyframes glowPulse {
+      0% { box-shadow: 0 0 0 1px var(--border), 0 10px 40px -10px rgba(124,60,255,.5), 0 0 50px -15px rgba(34,211,238,.4); }
+      100% { box-shadow: 0 0 0 1px var(--border), 0 15px 50px -10px rgba(124,60,255,.7), 0 0 70px -15px rgba(34,211,238,.6); }
     }
 
-    /* --- 6. Premium section title with animated underline --- */
+    /* --- 9. Staggered Reveal Animation --- */
+    .section.visible .card, .section.visible .glass {
+      animation: staggerReveal .8s cubic-bezier(.16,1,.3,1) forwards;
+      animation-delay: calc(var(--stagger, 0) * 80ms);
+    }
+    @keyframes staggerReveal {
+      0% { opacity: 0; transform: translateY(40px) scale(.95); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* --- 10. Premium section title with animated underline --- */
     .section-title {
       position: relative;
       display: inline-block;
@@ -191,7 +282,7 @@
       50% { background-position: 100% 50%; box-shadow: 0 0 25px rgba(34,211,238,.6); }
     }
 
-    /* --- 7. Premium gradient text with kinetic shimmer --- */
+    /* --- 11. Premium gradient text with kinetic shimmer --- */
     .grad-text {
       background: linear-gradient(90deg,
         #B9A7FF 0%, #8B5CF6 20%, #A855F7 40%,
@@ -207,7 +298,7 @@
       50% { background-position: 100% 50%; }
     }
 
-    /* --- 8. Premium button glow + ripple --- */
+    /* --- 12. Premium button with magnetic + ripple --- */
     .btn-primary {
       position: relative;
       overflow: hidden;
@@ -216,6 +307,10 @@
       box-shadow: 0 12px 30px -10px rgba(124,60,255,.65),
                   inset 0 1px 0 rgba(255,255,255,.15);
       animation: btnGradShift 6s ease infinite;
+      transition: transform .3s cubic-bezier(.16,1,.3,1), box-shadow .4s;
+    }
+    .btn-primary:hover {
+      transform: translateY(-4px) scale(1.03) translateX(var(--mag-x, 0)) translateY(var(--mag-y, 0));
     }
     .btn-primary::before {
       content: '';
@@ -226,21 +321,20 @@
       transition: opacity .4s;
     }
     .btn-primary:hover::before { opacity: 1; }
-    .btn-primary::after {
-      content: '';
-      position: absolute; top: 50%; left: 50%;
-      width: 0; height: 0; border-radius: 50%;
-      background: rgba(255,255,255,.4);
-      transform: translate(-50%,-50%);
-      transition: width .6s, height .6s, opacity .6s;
-      opacity: 0;
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255,255,255,.5);
+      transform: scale(0);
+      animation: rippleEffect .6s ease-out;
+      pointer-events: none;
     }
-    .btn-primary:hover::after {
-      width: 300px; height: 300px; opacity: 0;
+    @keyframes rippleEffect {
+      to { transform: scale(4); opacity: 0; }
     }
     @keyframes btnGradShift { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
 
-    /* --- 9. Premium eyebrow with animated dot pulses --- */
+    /* --- 13. Premium eyebrow with animated dot pulses --- */
     .eyebrow {
       display: inline-flex; align-items: center; gap: 10px;
       font-family: var(--ff-mono); font-size: 12px; letter-spacing: .18em;
@@ -263,7 +357,7 @@
       50% { box-shadow: 0 0 20px var(--accent-2), 0 0 0 6px rgba(168,85,247,0); }
     }
 
-    /* --- 10. Premium section divider: light beam --- */
+    /* --- 14. Premium section divider: light beam --- */
     .premium-divider {
       position: relative;
       height: 1px;
@@ -302,7 +396,7 @@
       50% { transform: translate(-50%,-50%) rotate(45deg) scale(1.4); }
     }
 
-    /* --- 11. Premium floating orbs --- */
+    /* --- 15. Premium floating orbs --- */
     .premium-orb {
       position: fixed; z-index: 0; pointer-events: none;
       border-radius: 50%;
@@ -313,19 +407,20 @@
     .premium-orb.o1 {
       width: 280px; height: 280px;
       top: 15%; left: 5%;
-      background: radial-gradient(circle, rgba(124,60,255,.6), transparent 70%);
+      background: radial-gradient(circle, rgba(124,60,255,.5), transparent 70%);
       animation-delay: 0s;
     }
     .premium-orb.o2 {
-      width: 220px; height: 220px;
-      top: 55%; right: 8%;
-      background: radial-gradient(circle, rgba(34,211,238,.5), transparent 70%);
+      width: 280px; height: 280px;
+      top: 15%; right: 5%;
+      background: radial-gradient(circle, rgba(34,211,238,.4), transparent 70%);
       animation-delay: -6s;
     }
     .premium-orb.o3 {
-      width: 180px; height: 180px;
-      bottom: 15%; left: 40%;
-      background: radial-gradient(circle, rgba(255,215,0,.4), transparent 70%);
+      width: 220px; height: 220px;
+      bottom: 15%; left: 50%;
+      transform: translateX(-50%);
+      background: radial-gradient(circle, rgba(255,215,0,.3), transparent 70%);
       animation-delay: -12s;
     }
     @keyframes orbFloat {
@@ -335,7 +430,7 @@
     }
     [data-theme="light"] .premium-orb { opacity: .35; }
 
-    /* --- 12. Premium offer banner (golden luxe) --- */
+    /* --- 16. Premium offer banner --- */
     .offer-banner {
       position: relative; z-index: 3; margin-bottom: 60px;
       padding: 34px 42px;
@@ -419,7 +514,7 @@
       animation: btnGradShift 3s ease infinite;
     }
 
-    /* --- 13. Premium nav glass --- */
+    /* --- 17. Premium nav glass --- */
     #nav.scrolled {
       background: color-mix(in srgb, var(--bg) 75%, transparent);
       backdrop-filter: blur(20px) saturate(180%);
@@ -428,7 +523,27 @@
       box-shadow: 0 8px 30px -12px rgba(0,0,0,.15);
     }
 
-    /* --- 14. Premium stat card with icon orbit --- */
+    /* --- 18. Nav link underline slide --- */
+    .nav-links a {
+      position: relative;
+      overflow: hidden;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 4px; left: 50%;
+      width: 0; height: 2px;
+      background: linear-gradient(90deg, var(--accent-2), var(--cyan));
+      transition: width .4s cubic-bezier(.16,1,.3,1), left .4s cubic-bezier(.16,1,.3,1);
+      border-radius: 2px;
+      box-shadow: 0 0 10px var(--accent-2);
+    }
+    .nav-links a:hover::after {
+      width: 60%;
+      left: 20%;
+    }
+
+    /* --- 19. Premium stat card --- */
     .stat-card {
       position: relative;
       overflow: hidden;
@@ -439,7 +554,7 @@
       background-size: 300% 300%;
     }
 
-    /* --- 15. Premium skill card icon glow --- */
+    /* --- 20. Premium skill card icon glow --- */
     .skill-card .ic {
       position: relative;
       transition: transform .5s cubic-bezier(.16,1,.3,1), box-shadow .5s;
@@ -449,14 +564,14 @@
                   inset 0 0 20px rgba(168,85,247,.2);
     }
 
-    /* --- 16. Premium contact field focus --- */
+    /* --- 21. Premium contact field focus --- */
     .field input:focus, .field textarea:focus {
       box-shadow: 0 0 0 4px rgba(124,60,255,.12),
                   0 0 30px rgba(124,60,255,.15);
       border-color: var(--accent-2);
     }
 
-    /* --- 17. Premium scroll progress bar with glow --- */
+    /* --- 22. Premium scroll progress bar --- */
     .scroll-progress {
       position: fixed; top: 0; left: 0; width: 0; height: 3px;
       background: linear-gradient(90deg,
@@ -472,7 +587,7 @@
        LAYOUT
        ============================================================ */
     .container {
-      max-width: 1240px; margin: 0 auto; padding: 0 24px;
+      max-width: 1240px; margin: 0 auto; padding: 0 40px;
       position: relative; z-index: 2; width: 100%;
     }
     .mono { font-family: var(--ff-mono); }
@@ -501,15 +616,6 @@
     .section.visible .glass, .section.visible .card { opacity: 1; transform: translateY(0) scale(1) rotateX(0deg); }
     .glass { border-radius: var(--radius-lg); }
     .card { border-radius: var(--radius-md); }
-    .card:hover, .glass:hover {
-      transform: translateY(-8px) scale(1.015);
-      border-color: transparent;
-      background: var(--surface-strong);
-      box-shadow:
-        0 0 0 1px var(--border),
-        0 30px 80px -30px rgba(124,60,255,.5),
-        0 0 60px -20px rgba(34,211,238,.3);
-    }
 
     .btn {
       display: inline-flex; align-items: center; justify-content: center; gap: 9px;
@@ -519,7 +625,6 @@
       position: relative; overflow: hidden; cursor: pointer;
       z-index: 1;
     }
-    .btn-primary:hover { transform: translateY(-4px) scale(1.03); }
     .btn-ghost {
       border: 1px solid var(--border); color: var(--text);
       background: var(--surface);
@@ -549,15 +654,7 @@
       transition: color .3s, background .3s, transform .4s;
       position: relative;
     }
-    .nav-links a::before {
-      content: '';
-      position: absolute; inset: 0;
-      border-radius: 100px;
-      background: linear-gradient(135deg, rgba(124,60,255,.15), rgba(34,211,238,.1));
-      opacity: 0; transition: opacity .3s;
-    }
     .nav-links a:hover { color: var(--text); transform: translateY(-2px); }
-    .nav-links a:hover::before { opacity: 1; }
     .theme-toggle, .burger {
       width: 40px; height: 40px; border-radius: 50%;
       border: 1px solid var(--border); background: var(--surface);
@@ -601,7 +698,7 @@
     }
 
     /* ============================================================
-       HERO
+       HERO - REDESIGNED TO MATCH SCREENSHOT
        ============================================================ */
     #hero {
       min-height: 100vh; min-height: 100svh;
@@ -644,6 +741,8 @@
       color: var(--accent-2); border-color: var(--accent-2);
       box-shadow: 0 0 30px rgba(168,85,247,.5), inset 0 0 15px rgba(168,85,247,.15);
     }
+    
+    /* NEW TERMINAL DESIGN */
     .hero-visual { position: relative; }
     .terminal-card {
       position: relative; z-index: 3;
@@ -688,6 +787,8 @@
       box-shadow: 0 0 10px var(--accent-2);
     }
     @keyframes blink { 50% { opacity: 0; } }
+    
+    /* NEW PROFILE CHIP - Pill shaped */
     .profile-chip {
       position: absolute; z-index: 4;
       display: flex; align-items: center; gap: 12px;
@@ -707,6 +808,39 @@
     }
     .profile-chip .name { font-family: var(--ff-display); font-weight: 700; font-size: 13.5px; word-wrap: break-word; }
     .profile-chip .role { color: var(--muted); font-size: 11.5px; }
+
+    /* NEW FLOATING STAT BOX */
+    .floating-stat {
+      position: absolute;
+      bottom: 20px; right: -30px;
+      padding: 16px 20px;
+      border-radius: var(--radius-md);
+      background: rgba(12, 8, 32, 0.8);
+      border: 1px solid rgba(124,60,255,.3);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 20px 40px -10px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.05);
+      z-index: 5;
+      text-align: center;
+      animation: floatStat 6s ease-in-out infinite;
+    }
+    .floating-stat .num {
+      font-family: var(--ff-display); font-size: 28px; font-weight: 800;
+      color: var(--accent-2); line-height: 1;
+      text-shadow: 0 0 20px rgba(168,85,247,.5);
+    }
+    .floating-stat .lbl {
+      font-family: var(--ff-mono); font-size: 10px; letter-spacing: .15em;
+      text-transform: uppercase; color: var(--muted); margin-top: 4px;
+    }
+    [data-theme="light"] .floating-stat {
+      background: rgba(255, 255, 255, 0.9);
+      border-color: rgba(124,60,255,.2);
+    }
+    @keyframes floatStat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
     .scroll-cue {
       position: absolute; bottom: 26px; left: 50%;
       transform: translateX(-50%);
@@ -764,10 +898,17 @@
     }
     .skill-panel { display: none; }
     .skill-panel.active { display: grid; }
-    .skill-grid { grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .skill-grid { 
+      grid-template-columns: repeat(4, 1fr); 
+      gap: 14px; 
+      justify-content: center;
+      width: 100%;
+    }
     .skill-card {
       padding: 20px 16px; text-align: center;
       display: flex; flex-direction: column; align-items: center; gap: 10px;
+      width: 100%;
+      box-sizing: border-box;
     }
     .skill-card .ic {
       width: 46px; height: 46px; border-radius: 14px;
@@ -912,10 +1053,11 @@
       .skill-grid { grid-template-columns: repeat(3, 1fr); }
       .contact-grid { grid-template-columns: 1fr; }
       .hero-grid-inner { grid-template-columns: 1fr; gap: 50px; }
-      .hero-visual { margin-top: 60px; max-width: 460px; width: 100%; }
+      .hero-visual { margin-top: 60px; max-width: 460px; width: 100%; margin-left: auto; margin-right: auto; }
       .offer-banner { flex-direction: column; text-align: center; padding: 28px; }
       .offer-content p { max-width: 100%; }
       .offer-cta { justify-content: center; }
+      .floating-stat { right: -10px; bottom: 10px; }
     }
 
     @media (max-width: 768px) {
@@ -934,6 +1076,8 @@
       .terminal-body { padding: 16px; font-size: 12px; min-height: 200px; }
       .terminal-topbar { padding: 12px 14px; }
       .profile-chip { position: relative; bottom: auto; left: auto; margin: 20px auto 0; width: fit-content; max-width: 100%; }
+      .floating-stat { bottom: 10px; right: 0; padding: 12px 16px; }
+      .floating-stat .num { font-size: 22px; }
       .scroll-cue { bottom: 14px; }
       .section { padding: 70px 0; }
       .section-head { margin-bottom: 32px; }
@@ -1002,6 +1146,9 @@
       .profile-chip { padding: 8px 14px 8px 8px; }
       .profile-chip img { width: 36px; height: 36px; }
       .profile-chip .name { font-size: 12px; }
+      .floating-stat { padding: 10px 12px; bottom: 5px; right: 5px; }
+      .floating-stat .num { font-size: 18px; }
+      .floating-stat .lbl { font-size: 8px; }
       .offer-content h3 { font-size: 16px; }
       .section-title { font-size: 22px; }
     }
@@ -1015,12 +1162,23 @@
       .aurora-bg::before, .aurora-bg::after { animation-duration: 60s; }
       .spotlight { display: none; }
       .premium-orb { display: none; }
+      .cursor-spotlight { display: none; }
+      .particle { display: none; }
+      .orbit-lines { display: none; }
       body::before { opacity: .02; }
-      .card::before, .glass::before, .card::after, .glass::after {
+      .card::before, .glass::before {
         display: none;
       }
       .premium-divider::before, .premium-divider::after { animation: none; }
       .terminal-card::before { animation: none; opacity: .4; }
+      .card:hover, .glass:hover {
+        animation: none;
+        transform: translateY(-6px) scale(1.01);
+        box-shadow: 0 10px 30px -10px rgba(124,60,255,.4);
+      }
+      .section.visible .card, .section.visible .glass {
+        animation: none;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1032,7 +1190,10 @@
       }
       .aurora-bg::before, .aurora-bg::after,
       .spotlight, .premium-orb, .premium-divider::before,
-      .premium-divider::after { animation: none !important; }
+      .premium-divider::after, .particle, .cursor-spotlight,
+      .orbit-lines * { animation: none !important; display: none !important; }
+      .card:hover, .glass:hover { animation: none !important; transform: translateY(-4px); }
+      .section.visible .card, .section.visible .glass { animation: none !important; opacity: 1; transform: none; }
     }
 
     :focus-visible { outline: 2px solid var(--accent-2); outline-offset: 3px; }
@@ -1044,9 +1205,20 @@
   <!-- PREMIUM BACKGROUND LAYERS -->
   <div class="aurora-bg" aria-hidden="true"></div>
   <div class="spotlight" aria-hidden="true"></div>
+  <div class="cursor-spotlight" id="cursor-spotlight" aria-hidden="true"></div>
   <div class="premium-orb o1" aria-hidden="true"></div>
   <div class="premium-orb o2" aria-hidden="true"></div>
   <div class="premium-orb o3" aria-hidden="true"></div>
+
+  <!-- NEW: ORBIT LINES & GLOW DOTS (From Screenshot) -->
+  <div class="orbit-lines" aria-hidden="true">
+    <div class="orbit-ring r1"></div>
+    <div class="orbit-ring r2"></div>
+    <div class="orbit-ring r3"></div>
+    <div class="glow-dot d1"></div>
+    <div class="glow-dot d2"></div>
+    <div class="glow-dot d3"></div>
+  </div>
 
   <!-- NAV -->
   <nav id="nav">
@@ -1077,7 +1249,7 @@
     <a href="#contact">Contact</a>
   </div>
 
-  <!-- HERO -->
+  <!-- HERO - REDESIGNED TO MATCH SCREENSHOT -->
   <section id="hero">
     <div class="container hero-grid-inner">
       <div>
@@ -1095,6 +1267,7 @@
         <div class="social-row" id="hero-socials"></div>
       </div>
       <div class="hero-visual">
+        <!-- NEW TERMINAL WINDOW -->
         <div class="terminal-card">
           <div class="terminal-topbar">
             <div class="tdot" style="background:#ff5f57;color:#ff5f57;"></div>
@@ -1106,12 +1279,20 @@
             <div class="terminal-line"><span class="p">$</span> <span id="terminal-type"></span><span class="cursor"></span></div>
           </div>
         </div>
+        
+        <!-- NEW PROFILE CHIP - Pill Shape -->
         <div class="profile-chip">
           <img id="profile-chip-img" src="" alt="Profile photo" />
           <div>
             <div class="name" id="profile-chip-name"></div>
             <div class="role">Guntur, Andhra Pradesh</div>
           </div>
+        </div>
+
+        <!-- NEW FLOATING STAT BOX -->
+        <div class="floating-stat">
+          <div class="num">04</div>
+          <div class="lbl">Projects</div>
         </div>
       </div>
     </div>
@@ -1294,7 +1475,7 @@
       hero: {
         roles: ["Cloud Computing Graduate", "Aspiring Cloud Engineer", "DevOps Enthusiast", "Python Developer", "Flask Developer", "TCS Offer Holder"],
         intro: "I am a B.Tech graduate in Computer Science & Engineering (CSE) with a strong foundation in cloud infrastructure, virtualization, networking, Python, Flask, Linux, databases, and scalable application deployment. I recently received an offer letter from TCS and am actively seeking internship and entry-level opportunities to turn cloud concepts into practical solutions.",
-        terminalLines: ["whoami", "→ pothineni_dolendra", "status --track cloud", "→ B.Tech CSE · Graduated", "offer --latest", "→ TCS Offer Received 🎉", "skills --list", "→ python, flask, sqlite, linux, aws, azure, gcp", "focus --set", "→ internship + entry-level roles"]
+        terminalLines: ["whoami", "→ pothineni_dolendra", "status --track cloud-computing"]
       },
       about: {
         summary: "I am a B.Tech graduate in Computer Science & Engineering (CSE) from R.V.R & J.C College of Engineering. I have developed a strong foundation in computer science, cloud infrastructure, virtualization, networking, operating systems, databases, and software development. I recently received an offer letter from TCS, and I enjoy learning modern cloud technologies and building practical applications that can scale.",
@@ -1402,7 +1583,7 @@
         frag.appendChild(tab);
         const panel = el(`<div class="skill-panel ${idx===0?'active':''} skill-grid" id="panel-${cat.key}"></div>`);
         cat.items.forEach(item => {
-          panel.appendChild(el(`<div class="card skill-card"><div class="ic"><i class="${item.icon}"></i></div><div class="lbl">${item.name}</div></div>`));
+          panel.appendChild(el(`<div class="card skill-card" style="--stagger: ${cat.items.indexOf(item)}"><div class="ic"><i class="${item.icon}"></i></div><div class="lbl">${item.name}</div></div>`));
         });
         panelFrag.appendChild(panel);
       });
@@ -1414,11 +1595,11 @@
       const grid = $('#project-grid');
       const githubProfile = DATA.socials.find(s => s.label === 'GitHub')?.url || '#';
       const frag = document.createDocumentFragment();
-      DATA.projects.forEach(p => {
+      DATA.projects.forEach((p, i) => {
         const repoLink = p.githubUrl || githubProfile;
         const liveBtn = p.liveUrl ? `<a href="${p.liveUrl}" target="_blank" rel="noopener" class="btn btn-primary btn-sm"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live</a>` : '';
         frag.appendChild(el(`
-          <div class="card project-card">
+          <div class="card project-card" style="--stagger: ${i}">
             <div class="project-media"><div class="imgwrap"><i class="${p.icon}"></i></div></div>
             <div class="project-body">
               <h3>${p.title}</h3>
@@ -1458,10 +1639,10 @@
     function renderCertifications() {
       const wrap = $('#cert-grid');
       const frag = document.createDocumentFragment();
-      DATA.certifications.forEach(cert => {
+      DATA.certifications.forEach((cert, i) => {
         const linkHtml = cert.link ? `<a href="${cert.link}" target="_blank" rel="noopener" class="cert-link"><i class="fa-regular fa-file-pdf"></i> View PDF</a>` : '';
         frag.appendChild(el(`
-          <div class="card cert-card">
+          <div class="card cert-card" style="--stagger: ${i}">
             <div class="cert-icon"><i class="${cert.icon}"></i></div>
             <h3>${cert.title}</h3>
             <div class="cert-org">${cert.org}</div>
@@ -1497,27 +1678,56 @@
       $('#footer-text').textContent = `© ${new Date().getFullYear()} ${DATA.personal.name}. All rights reserved.`;
     }
 
+    /* --- Scramble Text Effect for Role Rotator --- */
     function initRoleRotator() {
       const roles = DATA.hero.roles;
       const target = $('#role-rotator');
       if (matchMedia('(prefers-reduced-motion: reduce)').matches) { target.textContent = roles[0]; return; }
-      let i = 0, char = 0, deleting = false;
+      
+      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
+      let i = 0, char = 0, deleting = false, scrambling = false;
+
+      function scrambleTo(word) {
+        let iteration = 0;
+        const interval = setInterval(() => {
+          target.textContent = word.split('').map((letter, idx) => {
+            if (idx < iteration) return letter;
+            return chars[Math.floor(Math.random() * chars.length)];
+          }).join('');
+          iteration += 1 / 2;
+          if (iteration >= word.length) {
+            clearInterval(interval);
+            target.textContent = word;
+            scrambling = false;
+          }
+        }, 30);
+      }
+
       function tick() {
         const word = roles[i];
         if (!deleting) {
           char++;
           target.textContent = word.slice(0, char);
-          if (char === word.length) { deleting = true; setTimeout(tick, 1800); return; }
+          if (char === word.length) { 
+            setTimeout(() => { deleting = true; tick(); }, 1800); 
+            return; 
+          }
         } else {
           char--;
           target.textContent = word.slice(0, char);
-          if (char === 0) { deleting = false; i = (i + 1) % roles.length; }
+          if (char === 0) { 
+            deleting = false; 
+            i = (i + 1) % roles.length; 
+            scrambling = true;
+            scrambleTo(roles[i]);
+          }
         }
-        setTimeout(tick, deleting ? 30 : 65);
+        if (!scrambling) setTimeout(tick, deleting ? 30 : 65);
       }
       tick();
     }
 
+    /* --- Terminal Typing Effect --- */
     function initTerminalTyping() {
       const lines = DATA.hero.terminalLines;
       const body = $('#terminal-body');
@@ -1618,14 +1828,80 @@
       localStorage.setItem('portfolio-theme', mode);
     }
 
-    function initButtonMouseGlow() {
+    /* --- Magnetic Buttons + Ripple --- */
+    function initButtonEffects() {
       if (matchMedia('(hover: none)').matches) return;
       $$('.btn-primary').forEach(btn => {
         btn.addEventListener('mousemove', (e) => {
           const r = btn.getBoundingClientRect();
+          const x = e.clientX - r.left - r.width / 2;
+          const y = e.clientY - r.top - r.height / 2;
           btn.style.setProperty('--mx', `${e.clientX - r.left}px`);
           btn.style.setProperty('--my', `${e.clientY - r.top}px`);
+          btn.style.setProperty('--mag-x', `${x * 0.2}px`);
+          btn.style.setProperty('--mag-y', `${y * 0.2}px`);
         }, { passive: true });
+        btn.addEventListener('mouseleave', () => {
+          btn.style.setProperty('--mag-x', '0px');
+          btn.style.setProperty('--mag-y', '0px');
+        });
+        btn.addEventListener('click', function(e) {
+          const r = this.getBoundingClientRect();
+          const ripple = document.createElement('span');
+          ripple.className = 'ripple';
+          const size = Math.max(r.width, r.height);
+          ripple.style.width = ripple.style.height = `${size}px`;
+          ripple.style.left = `${e.clientX - r.left - size/2}px`;
+          ripple.style.top = `${e.clientY - r.top - size/2}px`;
+          this.appendChild(ripple);
+          setTimeout(() => ripple.remove(), 600);
+        });
+      });
+    }
+
+    /* --- Interactive Cursor Spotlight --- */
+    function initCursorSpotlight() {
+      if (matchMedia('(hover: none)').matches) return;
+      const spot = $('#cursor-spotlight');
+      document.addEventListener('mousemove', (e) => {
+        spot.style.left = e.clientX + 'px';
+        spot.style.top = e.clientY + 'px';
+      }, { passive: true });
+    }
+
+    /* --- Floating Particles --- */
+    function initParticles() {
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches || window.innerWidth < 768) return;
+      for (let i = 0; i < 15; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        p.style.left = Math.random() * 100 + 'vw';
+        p.style.animationDuration = (Math.random() * 15 + 15) + 's';
+        p.style.animationDelay = Math.random() * 20 + 's';
+        p.style.opacity = Math.random() * 0.5 + 0.3;
+        document.body.appendChild(p);
+      }
+    }
+
+    /* --- 3D Tilt on Cards --- */
+    function init3DTilt() {
+      if (matchMedia('(hover: none)').matches) return;
+      $$('.card, .glass').forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+          const r = card.getBoundingClientRect();
+          const x = e.clientX - r.left;
+          const y = e.clientY - r.top;
+          const cx = r.width / 2;
+          const cy = r.height / 2;
+          const rx = ((y - cy) / cy) * -6;
+          const ry = ((x - cx) / cx) * 6;
+          card.style.setProperty('--rx', `${rx}deg`);
+          card.style.setProperty('--ry', `${ry}deg`);
+        }, { passive: true });
+        card.addEventListener('mouseleave', () => {
+          card.style.setProperty('--rx', '0deg');
+          card.style.setProperty('--ry', '0deg');
+        });
       });
     }
 
@@ -1661,8 +1937,8 @@
       renderObjective(); renderContact();
       initContactForm(); initRoleRotator(); initTerminalTyping();
       initNavScroll(); initMobileMenu(); initTheme();
-      initButtonMouseGlow();
-      initScrollAnimations(); initScrollProgress();
+      initButtonEffects(); initCursorSpotlight(); initParticles();
+      init3DTilt(); initScrollAnimations(); initScrollProgress();
     });
   </script>
 </body>
