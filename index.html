@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
   <title>Pothineni Dolendra · Cloud Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -444,6 +444,8 @@
       width: 100%;
       height: 100%;
       display: block;
+      contain: strict;
+      will-change: transform;
     }
     .hero-blob {
       position: fixed;
@@ -453,6 +455,7 @@
       pointer-events: none;
       animation: blobFloat 12s ease-in-out infinite alternate;
       transition: background .3s;
+      will-change: transform;
     }
     .hero-blob.b1 {
       width: 580px;
@@ -1699,6 +1702,7 @@
       opacity: 0;
       animation: floatUp 15s linear infinite;
       box-shadow: 0 0 8px var(--accent-2), 0 0 15px rgba(168, 85, 247, .4);
+      will-change: transform, opacity;
     }
     @keyframes floatUp {
       0% { opacity: 0; transform: translateY(0) scale(0); }
@@ -1707,35 +1711,71 @@
       100% { opacity: 0; transform: translateY(-100vh) scale(.5); }
     }
 
+    /* ===== MOBILE SCROLL PERFORMANCE FIXES ===== */
     @media (max-width: 1024px) {
-      .about-grid { grid-template-columns: 1fr; gap: 44px; }
-      .project-grid { grid-template-columns: 1fr; }
-      .cert-grid { grid-template-columns: repeat(2, 1fr); }
-      .skill-grid { grid-template-columns: repeat(3, 1fr); }
-      .contact-grid { grid-template-columns: 1fr; }
-      .hero-grid-inner { grid-template-columns: 1fr; }
-      .hero-visual { margin-top: 60px; max-width: 460px; }
-      .hero-blob.b3 { display: none; }
-      .offer-banner { flex-direction: column; text-align: center; padding: 28px; }
-      .offer-content p { max-width: 100%; }
-      .offer-cta { justify-content: center; }
+      .hero-blob {
+        filter: blur(60px);
+        animation: none;
+      }
+      #bg-canvas {
+        contain: strict;
+      }
+      .vignette {
+        background: radial-gradient(ellipse 70% 55% at 70% 40%, transparent 50%, rgba(8,5,26,0.5) 90%);
+      }
     }
+
     @media (max-width: 768px) {
-      .nav-links { display: none; }
-      .burger { display: flex; }
-      .section { padding: 80px 0; }
-      .stat-grid { grid-template-columns: 1fr 1fr; }
-      .skill-grid { grid-template-columns: repeat(2, 1fr); }
-      .cert-grid { grid-template-columns: 1fr; }
-      .hero-title { font-size: 34px; }
-      .hero-blob.b1 { width: 300px; height: 300px; right: -60px; }
-      .hero-blob.b2 { width: 260px; height: 260px; left: -60px; }
-      .objective-card { padding: 30px; flex-direction: column; }
-      .offer-icon-wrap { width: 56px; height: 56px; font-size: 24px; }
+      .hero-blob {
+        filter: blur(40px);
+        opacity: 0.5;
+      }
+      .glass, .card, #nav.scrolled, #mobile-menu {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        background: var(--bg-elev) !important;
+      }
+      .card:hover, .glass:hover,
+      .stat-card:hover, .skill-card:hover,
+      .project-card:hover, .cert-card:hover {
+        box-shadow: 0 4px 20px rgba(124, 60, 255, .15) !important;
+      }
+      .section, .section-head, .glass, .card, .stat-card, .skill-card,
+      .project-card, .cert-card, .tl-item, .contact-info-card, .contact-row,
+      .bring-list li, .about-text p, .offer-banner, .objective-card {
+        transition-duration: .5s !important;
+        transition-timing-function: ease-out !important;
+      }
+      .grad-text, .eyebrow, .btn-primary, .btn-gold,
+      .terminal-card, .profile-chip, .stat-float, .orbit-ring,
+      .scroll-cue, .scroll-cue .line, .social-icon,
+      .skill-card .ic, .project-media .imgwrap i,
+      .cert-card .cert-icon, .bring-list .ico,
+      .contact-row .ic, .stat-card .num,
+      .objective-card i, .cursor {
+        animation-duration: .001ms !important;
+        animation-iteration-count: 1 !important;
+      }
+      .float-particle {
+        display: none;
+      }
+      #bg-canvas {
+        opacity: 0.5;
+      }
     }
+
     @media (prefers-reduced-motion: reduce) {
-      * { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
+      * {
+        animation-duration: .001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .001ms !important;
+        scroll-behavior: auto !important;
+      }
+      .hero-blob, .orbit-ring, .float-particle {
+        animation: none !important;
+      }
     }
+
     :focus-visible {
       outline: 2px solid var(--accent-2);
       outline-offset: 3px;
@@ -1745,7 +1785,7 @@
     }
   </style>
 </head>
-<body data-theme="dark">
+<body data-theme="light">
   <!-- Scroll Progress Bar -->
   <div class="scroll-progress" id="scroll-progress"></div>
 
@@ -1770,7 +1810,7 @@
         <a href="#contact">Contact</a>
       </div>
       <div style="display:flex;align-items:center;gap:10px;">
-        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme"><i class="fa-solid fa-moon" id="theme-icon"></i></button>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme"><i class="fa-solid fa-sun" id="theme-icon"></i></button>
         <button class="burger" id="burger-btn" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
       </div>
     </div>
@@ -2243,7 +2283,7 @@
     function initTerminalTyping() {
       const lines = DATA.hero.terminalLines;
       const body = $('#terminal-body');
-      if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches || window.innerWidth < 768) {
         body.innerHTML = lines.map(l => `<div class="terminal-line">${l.startsWith('→') ? '' : '<span class="p">$</span> '}${l}</div>`).join('');
         return;
       }
@@ -2337,7 +2377,7 @@
     // THEME
     // ============================================================
     function initTheme() {
-      const stored = localStorage.getItem('portfolio-theme') || 'dark';
+      const stored = localStorage.getItem('portfolio-theme') || 'light';
       setTheme(stored);
       $('#theme-toggle').addEventListener('click', () => {
         const current = document.body.getAttribute('data-theme');
@@ -2357,7 +2397,7 @@
     }
 
     // ============================================================
-    // STARFIELD BACKGROUND with moving particles
+    // STARFIELD BACKGROUND with moving particles - OPTIMIZED
     // ============================================================
     let canvasParticles = [];
     let canvasCtx = null;
@@ -2365,12 +2405,13 @@
     let canvasAnimationId = null;
     let canvasReduced = false;
     let mouseX = -1000, mouseY = -1000;
+    let isMobile = window.innerWidth < 768;
 
     function initBgCanvas() {
       const canvas = document.getElementById('bg-canvas');
       const ctx = canvas.getContext('2d');
       canvasCtx = ctx;
-      canvasReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      canvasReduced = matchMedia('(prefers-reduced-motion: reduce)').matches || isMobile;
 
       const resize = () => {
         canvasW = canvas.width = window.innerWidth;
@@ -2379,11 +2420,11 @@
       };
 
       const initParticles = () => {
-        const count = Math.min(150, Math.floor((canvasW * canvasH) / 6500));
+        const baseCount = isMobile ? 30 : Math.min(150, Math.floor((canvasW * canvasH) / 6500));
         canvasParticles = [];
-        const theme = document.body.getAttribute('data-theme') || 'dark';
+        const theme = document.body.getAttribute('data-theme') || 'light';
         const alphaMult = theme === 'dark' ? 1 : 0.6;
-        for (let i = 0; i < count; i++) {
+        for (let i = 0; i < baseCount; i++) {
           canvasParticles.push({
             x: Math.random() * canvasW,
             y: Math.random() * canvasH,
@@ -2401,12 +2442,11 @@
       const draw = () => {
         ctx.clearRect(0, 0, canvasW, canvasH);
 
-        // Subtle grid
-        const theme = document.body.getAttribute('data-theme') || 'dark';
+        const theme = document.body.getAttribute('data-theme') || 'light';
         const gridOpacity = theme === 'dark' ? 0.035 : 0.06;
         ctx.strokeStyle = `rgba(168,85,247,${gridOpacity})`;
         ctx.lineWidth = 0.6;
-        const step = 52;
+        const step = isMobile ? 80 : 52;
         for (let x = 0; x <= canvasW; x += step) {
           ctx.beginPath();
           ctx.moveTo(x, 0);
@@ -2420,7 +2460,6 @@
           ctx.stroke();
         }
 
-        // Draw particles (stars) with glow
         canvasParticles.forEach(p => {
           if (!canvasReduced) {
             p.x += p.vx;
@@ -2429,7 +2468,6 @@
             if (p.x < 0 || p.x > canvasW) p.vx *= -1;
             if (p.y < 0 || p.y > canvasH) p.vy *= -1;
 
-            // Mouse interaction - gentle push
             const mdx = p.x - mouseX;
             const mdy = p.y - mouseY;
             const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
@@ -2444,42 +2482,42 @@
           const isGold = p.hue === 'gold';
           const color = isGold ? '255,215,0' : '168,85,247';
 
-          // Core
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
           ctx.fillStyle = `rgba(${color},${pulseAlpha * 0.85})`;
           ctx.fill();
 
-          // Glow
-          const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 4);
-          grad.addColorStop(0, `rgba(${color},${pulseAlpha * 0.25})`);
-          grad.addColorStop(1, `rgba(${color},0)`);
-          ctx.fillStyle = grad;
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.r * 4, 0, Math.PI * 2);
-          ctx.fill();
+          if (!isMobile) {
+            const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 4);
+            grad.addColorStop(0, `rgba(${color},${pulseAlpha * 0.25})`);
+            grad.addColorStop(1, `rgba(${color},0)`);
+            ctx.fillStyle = grad;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r * 4, 0, Math.PI * 2);
+            ctx.fill();
+          }
         });
 
-        // Connected lines
-        const lineOpacity = theme === 'dark' ? 0.12 : 0.08;
-        for (let i = 0; i < canvasParticles.length; i++) {
-          for (let j = i + 1; j < canvasParticles.length; j++) {
-            const dx = canvasParticles[i].x - canvasParticles[j].x;
-            const dy = canvasParticles[i].y - canvasParticles[j].y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < 150) {
-              ctx.beginPath();
-              ctx.moveTo(canvasParticles[i].x, canvasParticles[i].y);
-              ctx.lineTo(canvasParticles[j].x, canvasParticles[j].y);
-              ctx.strokeStyle = `rgba(168,85,247,${(1 - dist / 150) * lineOpacity})`;
-              ctx.lineWidth = 0.7;
-              ctx.stroke();
+        if (!isMobile) {
+          const lineOpacity = theme === 'dark' ? 0.12 : 0.08;
+          for (let i = 0; i < canvasParticles.length; i++) {
+            for (let j = i + 1; j < canvasParticles.length; j++) {
+              const dx = canvasParticles[i].x - canvasParticles[j].x;
+              const dy = canvasParticles[i].y - canvasParticles[j].y;
+              const dist = Math.sqrt(dx * dx + dy * dy);
+              if (dist < 150) {
+                ctx.beginPath();
+                ctx.moveTo(canvasParticles[i].x, canvasParticles[i].y);
+                ctx.lineTo(canvasParticles[j].x, canvasParticles[j].y);
+                ctx.strokeStyle = `rgba(168,85,247,${(1 - dist / 150) * lineOpacity})`;
+                ctx.lineWidth = 0.7;
+                ctx.stroke();
+              }
             }
           }
         }
 
-        // Mouse cursor connection
-        if (mouseX > 0 && mouseY > 0) {
+        if (!isMobile && mouseX > 0 && mouseY > 0) {
           canvasParticles.forEach(p => {
             const dx = p.x - mouseX;
             const dy = p.y - mouseY;
@@ -2506,22 +2544,27 @@
 
       let resizeTimer;
       window.addEventListener('resize', () => {
+        isMobile = window.innerWidth < 768;
+        canvasReduced = matchMedia('(prefers-reduced-motion: reduce)').matches || isMobile;
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(() => {
           resize();
           initParticles();
+          if (!canvasAnimationId && !canvasReduced) draw();
         }, 200);
       });
 
-      window.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY + window.scrollY;
-      }, { passive: true });
+      if (!isMobile) {
+        window.addEventListener('mousemove', (e) => {
+          mouseX = e.clientX;
+          mouseY = e.clientY + window.scrollY;
+        }, { passive: true });
 
-      window.addEventListener('mouseleave', () => {
-        mouseX = -1000;
-        mouseY = -1000;
-      });
+        window.addEventListener('mouseleave', () => {
+          mouseX = -1000;
+          mouseY = -1000;
+        });
+      }
 
       let lastH = canvasH;
       window.addEventListener('scroll', () => {
@@ -2540,7 +2583,7 @@
     }
 
     function initMouseGlow() {
-      if (matchMedia('(hover: none)').matches) return;
+      if (matchMedia('(hover: none)').matches || isMobile) return;
       $$('.card, .glass, .stat-card').forEach(card => {
         card.addEventListener('mousemove', (e) => {
           const r = card.getBoundingClientRect();
@@ -2551,7 +2594,7 @@
     }
 
     function initParallax() {
-      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches || isMobile) return;
       const blobs = $$('.hero-blob');
       let ticking = false;
       window.addEventListener('scroll', () => {
@@ -2595,11 +2638,11 @@
     }
 
     // ============================================================
-    // FLOATING PARTICLES (ambient)
+    // FLOATING PARTICLES (ambient) - disabled on mobile
     // ============================================================
     function initFloatingParticles() {
-      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      const count = window.innerWidth < 768 ? 8 : 16;
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches || isMobile) return;
+      const count = window.innerWidth < 768 ? 0 : 16;
       for (let i = 0; i < count; i++) {
         const particle = document.createElement('div');
         particle.className = 'float-particle';
